@@ -10,7 +10,10 @@
       </b-form-group>
 
       <b-button type="submit" variant="primary">Submit</b-button>
-    </b-form>    
+    </b-form>
+    <b-alert class="alert-window" variant="danger" dismissible :show="showDismissibleAlert" @dismissed="showDismissibleAlert=false">
+      {{error}}
+    </b-alert>
   </div>
 </template>
 
@@ -22,7 +25,9 @@ export default {
   data: function() {
     return {
       email: "",
-      password: ""
+      password: "",
+      error: "",
+      showDismissibleAlert: false
     };
   },
   methods: {
@@ -34,7 +39,11 @@ export default {
           email,
           password
         })
-        .then(response => console.log(response.data));
+        .then(response => console.log(response.data))
+        .catch(request => {
+          this.error = request.response.data[0].message;
+          this.showDismissibleAlert = true;
+        });
     }
   }
 };
@@ -45,5 +54,9 @@ export default {
 .wrapper {
   display: inline-block;
   margin: 0 auto;
+}
+
+.alert-window {
+  margin-top: 20px;
 }
 </style>

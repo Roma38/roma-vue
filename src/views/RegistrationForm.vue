@@ -16,6 +16,12 @@
       </b-form-group>
 
       <b-button type="submit" variant="primary">Submit</b-button>
+
+      <b-alert class="alert-window" variant="danger" dismissible :show="showDismissibleAlert" @dismissed="showDismissibleAlert=false">
+        <ul class="list-unstyled">
+          <li v-for="error in errors" :key="error.message">{{error.message}}</li>
+        </ul>
+      </b-alert>
     </b-form>
   </div>
 </template>
@@ -32,7 +38,9 @@ export default {
     return {
       email: "",
       password: "",
-      confirmPass: ""
+      confirmPass: "",
+      errors: "",
+      showDismissibleAlert: false
     };
   },
   computed: {
@@ -92,7 +100,12 @@ export default {
           password,
           confirmPass
         })
-        .then(response => console.log(response.data));
+        .then(response => console.log(response.data))
+        .catch(request => {
+          console.log(request.response.data);
+          this.showDismissibleAlert = true;
+          this.errors = request.response.data;
+        });
     }
   }
 };
@@ -103,5 +116,9 @@ export default {
 .wrapper {
   display: inline-block;
   margin: 0 auto;
+}
+
+.alert-window {
+  margin-top: 20px;
 }
 </style>
