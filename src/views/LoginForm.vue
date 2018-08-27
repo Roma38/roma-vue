@@ -1,11 +1,11 @@
 <template>
   <div class="wrapper">
     <b-form @submit.prevent="onSubmit">
-      <b-form-group horizontal label="Email:">
+      <b-form-group horizontal label="Email:" label-text-align="sm-right">
         <b-form-input v-model="email" type="email" required></b-form-input>
       </b-form-group>
 
-      <b-form-group horizontal label="Password:">
+      <b-form-group horizontal label="Password:" label-text-align="sm-right">
         <b-form-input v-model="password" type="password" required minlength="8"></b-form-input>
       </b-form-group>
 
@@ -33,6 +33,7 @@ export default {
   methods: {
     onSubmit: function() {
       const { email, password } = this;
+      this.showDismissibleAlert = false;
 
       axios
         .post(`//${API_HOST}/login`, {
@@ -40,8 +41,9 @@ export default {
           password
         })
         .then(response => console.log(response.data))
-        .catch(request => {
-          this.error = request.response.data[0].message;
+        .catch(error => {
+          this.error = error.response.data[0].message;
+          /* console.log(error); */
           this.showDismissibleAlert = true;
         });
     }

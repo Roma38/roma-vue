@@ -1,16 +1,16 @@
 <template>
   <div class="wrapper">
     <b-form @submit.prevent="onSubmit">
-      <b-form-group horizontal label="Email:">
+      <b-form-group horizontal label="Email:" label-cols="5" label-text-align="sm-right">
         <b-form-input v-model="email" type="email" required></b-form-input>
       </b-form-group>
 
-      <b-form-group horizontal label="Password:">
+      <b-form-group horizontal label="Password:" label-cols="5" label-text-align="sm-right">
         <b-form-input v-model="password" type="password" required :state="passwordState"></b-form-input>
         <b-form-invalid-feedback>{{passwordFeedback}}</b-form-invalid-feedback>
       </b-form-group>
 
-      <b-form-group horizontal label="Confirm password:">
+      <b-form-group horizontal label="Confirm password:" label-cols="5" label-text-align="sm-right">
         <b-form-input v-model="confirmPass" type="password" required :state="confirmPassState" :disabled="!passwordState"></b-form-input>
         <b-form-invalid-feedback>It's not the same password</b-form-invalid-feedback>
       </b-form-group>
