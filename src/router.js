@@ -4,6 +4,7 @@ import Home from "./views/Home.vue";
 import About from "./views/About.vue";
 import RegistrationForm from "./views/RegistrationForm.vue";
 import LoginForm from "./views/LoginForm.vue";
+import MyProfile from "./views/MyProfile.vue";
 
 Vue.use(Router);
 
@@ -28,6 +29,11 @@ export default new Router({
       path: "/login",
       name: "login",
       component: LoginForm
+    },
+    {
+      path: "/my-profile",
+      name: "my-profile",
+      component: MyProfile
     }
   ]
 });

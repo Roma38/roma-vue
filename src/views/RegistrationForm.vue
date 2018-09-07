@@ -106,6 +106,8 @@ export default {
           this.showDismissibleAlert = true;
           this.errors = request.response.data;
         });
+      
+      this.showDismissibleAlert = false;
     }
   }
 };

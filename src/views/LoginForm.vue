@@ -36,10 +36,14 @@ export default {
       this.showDismissibleAlert = false;
 
       axios
-        .post(`//${API_HOST}/login`, {
-          email,
-          password
-        })
+        .post(
+          `//${API_HOST}/login`,
+          {
+            email,
+            password
+          },
+          { withCredentials: true } // TODO добавить этот флаг ко всем запросам
+        )
         .then(response => console.log(response.data))
         .catch(error => {
           this.error = error.response.data[0].message;
