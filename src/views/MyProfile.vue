@@ -100,7 +100,10 @@ export default {
           },
           { withCredentials: true }
         )
-        .then(response => console.log(response.data))
+        .then(response => {
+          console.log(response.data);
+          this.$router.push("/");
+        })
         .catch(error => {
           console.log(error.response.data);
         });

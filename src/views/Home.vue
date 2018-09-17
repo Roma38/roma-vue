@@ -1,18 +1,22 @@
 <template>
   <b-container>
-    <b-button v-if="isLoggedIn" href="#/my-profile" variant="outline-success">My profile</b-button>
+    <b-row class="text-right pb-3">
+      <b-col>
+        <b-button v-if="isLoggedIn" href="#/my-profile" variant="outline-success">My profile</b-button>
 
-    <b-button-group v-else>
-      <b-button href="#/registration" variant="outline-success">Registration</b-button>
-      <b-button href="#/login" variant="outline-success">Login</b-button>
-    </b-button-group>
-
-    <b-card v-for="post in posts" :key="post.id" :title="post.postTitle" class="text-left">
+        <b-button-group v-else>
+          <b-button href="#/registration" variant="outline-success">Registration</b-button>
+          <b-button href="#/login" variant="outline-success">Login</b-button>
+        </b-button-group>
+      </b-col>
+    </b-row>
+      
+    <b-card v-for="post in posts" :key="post.id" :title="post.postTitle" class="text-left mb-1">
       {{ post.postBody }}
-      <p slot="footer" class="text-right">{{new Date(post.postDate).toLocaleString()}} <em>{{post.author ? post.author : "Anonymous"}}</em></p>
+      <p slot="footer" class="text-right">{{new Date(post.postDate).toLocaleString()}} <em>{{post.author || "Anonymous"}}</em></p>
     </b-card>
 
-    <b-form @submit.prevent="onSubmit" v-if="isLoggedIn" class="border rounded mt-3">
+    <b-form @submit.prevent="onSubmit" v-if="isLoggedIn" class="border rounded my-3 p-3">
       <h2 class="m-3">Add post</h2>
 
       <b-form-group label="Title: " horizontal label-text-align="sm-right">
@@ -65,6 +69,8 @@ export default {
         )
         .then(response => {
           this.posts = response.data;
+          this.postTitle = "";
+          this.postBody = "";
         });
     }
   }

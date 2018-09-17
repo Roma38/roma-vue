@@ -44,7 +44,10 @@ export default {
           },
           { withCredentials: true } // TODO добавить этот флаг ко всем запросам
         )
-        .then(response => console.log(response.data))
+        .then(response => {
+          console.log(response.data);
+          this.$router.push("/");
+        })
         .catch(error => {
           this.error = error.response.data[0].message;
           /* console.log(error); */
